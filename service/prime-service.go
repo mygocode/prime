@@ -1,10 +1,6 @@
 package service
 
 type PrimeService interface {
-	//Validate(post *entity.Post) error
-	//Create(post *entity.Post) (*entity.Post, error)
-	// FindAll() ([]entity.Post, error)
-	//Calculate(prime *entity.PrimeDomain) (uint32, error)
 	Calculate(primeNumber uint32) (uint32, error)
 }
 
@@ -19,13 +15,7 @@ func NewPrimeService() PrimeService {
 	return &service{}
 }
 
-// func (*service) Calculate(prime *entity.PrimeDomain) (result uint32, err error) {
-
-// 	return getPrime(prime.PrimeNumber), nil
-// }
-
 func (*service) Calculate(primeNumber uint32) (result uint32, err error) {
-
 	return getPrime(primeNumber), nil
 }
 

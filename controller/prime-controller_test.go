@@ -17,7 +17,7 @@ var (
 	primeController PrimeController      = NewPrimeController(primeSrv)
 )
 
-func TestPostPrime(t *testing.T) {
+func TestPostPrime_BestCase(t *testing.T) {
 	// Create new HTTP request
 	reader := strings.NewReader("primenumber=55")
 	req, _ := http.NewRequest("POST", "/postprime", reader)
@@ -43,7 +43,6 @@ func TestPostPrime(t *testing.T) {
 	var result uint32
 	var expected uint32 = 53
 	json.NewDecoder(io.Reader(response.Body)).Decode(&result)
-	t.Log(result)
 
 	// // Assert HTTP response
 	assert.Equal(t, expected, result)
