@@ -1,14 +1,12 @@
 package service
 
+import "errors"
+
 type PrimeService interface {
 	Calculate(primeNumber uint32) (uint32, error)
 }
 
 type service struct{}
-
-// var (
-// 	repo repository.PostRepository
-// )
 
 // Info: Here we can inject database instance as a parameter but thats not required.
 func NewPrimeService() PrimeService {
@@ -16,6 +14,12 @@ func NewPrimeService() PrimeService {
 }
 
 func (*service) Calculate(primeNumber uint32) (result uint32, err error) {
+
+	if primeNumber == 0 {
+		err := errors.New("Zero is invalid input. Please provide valid input.")
+		return 0, err
+	}
+
 	return getPrime(primeNumber), nil
 }
 

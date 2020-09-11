@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -26,13 +27,20 @@ func NewPrimeController(service service.PrimeService) PrimeController {
 
 func (*controller) PostPrime(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "application/json")
-	//prime := request.FormValue("primenumber")
-	receivedPrime, _ := strconv.ParseInt(request.PostFormValue("primenumber"), 0, 32)
+
+	receivedPrime, err1 := strconv.ParseInt(request.PostFormValue("primenumber"), 0, 32)
+	if err1 != nil {
+		fmt.Println(err1)
+		response.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(response).Encode(errors.ServiceError{Message: "Invalid input. Please provide valid numeric value."})
+		return
+	}
 
 	result, err2 := primeService.Calculate(uint32(receivedPrime))
 	if err2 != nil {
+		fmt.Println(err2)
 		response.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(response).Encode(errors.ServiceError{Message: "Error saving the post"})
+		json.NewEncoder(response).Encode(errors.ServiceError{Message: "Error processing the given information"})
 		return
 	}
 	response.WriteHeader(http.StatusOK)
