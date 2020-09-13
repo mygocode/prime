@@ -26,23 +26,23 @@ Here is the git history. I use GitKraken tool for git visualization and keep tra
 
 ![Git History](https://i.ibb.co/KWQR99X/Git-Kraken.jpg)
 
-## Development Process for production applicatins
+## Development Process for production application
 I will prefer to use the following steps for production level application.
 
 - Developer/s pick up the task from Jira board and assign it to themselves so other team members could know. 
 - Create a feature branch locally.
 - Push that branch to remote repo we well.
-- If more than one developers are working then they will use this same branch and commit their changes on this branch
+- If more than one developer is working then they will use this same branch and commit their changes on this branch.
 - When the feature is done, the code will go to the Code Review(CR) stage. 
 - At CR stage, another developer in the team will review the code and either accepts the changes or reject the changes. 
 - If CR is successful, then code is merged to the feature branch.
 - When the feature is complete, the team will move their task on Jira board to QA column. 
-- The QA team will deploy this feature on testing environment and test the featureaccording to the defined criteria in the description. 
-- Once the QA issuccessful, then either QA or feature owner will merge the code to the master branch. 
+- The QA team will deploy this feature on testing environment and test the feature according to the defined criteria in the description. 
+- Once the QA is successful, then either QA or feature owner will merge the code to the master branch. 
 
 ## Deployment with Jenkins
-I have used Jenkins pipeline for deployment. In a team environment, we need to have at least 3 environments. Dev, QA, Production.   
-Developers will use the Dev environment to deploy and test their features. After that, that same instance ahould be deployed to the QA environment so QA team can further investigate bugs and issues and then once all is verified this approved instance can be deployed to production and this all can be managed using Jenkins.   
+I have used Jenkins pipeline for deployment. In a team environment, we need to have at least 3 environments. Dev, QA, Production. There can be other environments like CI, Nightly etc, but that depends on requirement.
+Developers can use the Dev environment to quickly deploy and test their features. When development is done, that same instance should be deployed to the QA environment so QA team can check and further investigate possible bugs and issues. Once all is verified, this approved instance can be deployed to production and this all can be managed using Jenkins.   
 To keep the process simple, I haven't configured any trigger on master branch. After merging the code to master branch, we can simply start the "Prime-Production" job. This job will perform the following operation.
 - Checkout the master branch.
 - Build the docker image.
