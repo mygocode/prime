@@ -31,12 +31,12 @@ func (*controller) PostPrime(response http.ResponseWriter, request *http.Request
 	receivedPrime, err1 := strconv.ParseUint(request.PostFormValue("primenumber"), 10, 64)
 	if err1 != nil {
 		fmt.Println("Controller->" + err1.Error())
-		response.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(response).Encode(errors.ServiceError{Message: "Invalid input. Please provide valid numeric value."})
+		response.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(response).Encode(errors.ServiceError{Message: "Invalid input." + err1.Error()})
 		return
 	}
 
-	result, err2 := primeService.Calculate(uint32(receivedPrime))
+	result, err2 := primeService.Calculate(uint64(receivedPrime))
 	if err2 != nil {
 		fmt.Println("Controller-> " + err2.Error())
 		response.WriteHeader(http.StatusInternalServerError)

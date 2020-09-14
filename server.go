@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	primeCache = map[uint32]uint32{0: 0}
+	primeCache = map[uint64]uint64{0: 0}
 
 	/* Creating and injecting local cache.
 	If we had database layer then we would have injected here in service */
