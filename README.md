@@ -26,6 +26,9 @@ Here is the git history. I use GitKraken tool for git visualization and keep tra
 
 ![Git History](https://i.ibb.co/KWQR99X/Git-Kraken.jpg)
 
+## Cache
+Most of the application uses **Memcached**, **Redis** or **Apache Ignite** but according to the scope of this application, I decided use a Local Cache strategy which is easir to implement and light-weight. When the user will enter a number to get the prime number, the application will first check the local cache for the user given number. If its a cache miss, then the system will invoke the service layer and do the processing, cache the result and return the result to the user.
+
 ## Development Process for production application
 I will prefer to use the following steps for production level application.
 
@@ -41,7 +44,7 @@ I will prefer to use the following steps for production level application.
 - Once the QA is successful, then either QA or feature owner will merge the code to the master branch. 
 
 ## Deployment with Jenkins
-I have used Jenkins pipeline for deployment. In a team environment, we need to have at least 3 environments. Dev, QA, Production. There can be other environments like CI, Nightly etc, but that depends on requirement.
+I have used Jenkins pipeline for deployment. In a team environment, we need to have at least 3 environments, **Dev**, **QA**, **Production**. There can be other environments like **CI**, **Nightly** etc, but that depends on requirement.
 Developers can use the Dev environment to quickly deploy and test their features. When development is done, that same instance should be deployed to the QA environment so QA team can check and further investigate possible bugs and issues. Once all is verified, this approved instance can be deployed to production and this all can be managed using Jenkins.   
 To keep the process simple, I haven't configured any trigger on master branch. After merging the code to master branch, we can simply start the "Prime-Production" job. This job will perform the following operation.
 - Checkout the master branch.
@@ -52,9 +55,8 @@ To keep the process simple, I haven't configured any trigger on master branch. A
 ![Jenkins](https://i.ibb.co/S3XWg8f/Jenkins.jpg)
 
 ## Points which can be improved
-Due to limited time availability, I couldn't implement all the features required for production application. Following features could not be implemented.    
+Due to limited time, I couldn't implement all the features required for production application. Following features could not be implemented.    
 - Reverse Proxy for load balancing
-- Redis for caching
 - Improved Logging
 - Application security with JWT
 - Docker swarm orchestration
