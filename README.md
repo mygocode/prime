@@ -1,7 +1,7 @@
 # Prime Number Application 
 ## Introduction
 This is a simple web application that takes in a number and return to the user the highest prime number lower than the input number. For example an input of 55 would return 53.   
-Following tools are used to develop the appliation   
+Following tools are used to develop the appliation
 - Go language
 - VS code IDE
 - Git for source control managment
@@ -9,6 +9,10 @@ Following tools are used to develop the appliation
 - Docker for containarization 
 - Jenkins for CI/CD pipline 
 - AWS EC2 instance for hosting the application 
+
+> Application is accessible using fllowing links   
+> **Public DNS:** ec2-3-16-29-7.us-east-2.compute.amazonaws.com   
+> **Public IP:** http://3.16.29.7:80/   
 
 ## Project Structure
 This project is designed using GO language and Clean Architecture. Clean architecture ensures every layer should be separated from other and these layer should not have dependency on each other. This structure ensures cleanness, maintainability, and extensibility.   
@@ -58,7 +62,7 @@ I will prefer to use the following steps for production level application.
 ## Points which can be improved
 Due to limited time, I couldn't touch every aspect of production application. Following points can be improvement.    
 - Reverse Proxy for load balancing
-- Improved Logging
-- Application security with JWT
+- Logging
+- Security
 - Docker swarm orchestration
 - Unit and Integration Testing 
