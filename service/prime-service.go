@@ -1,15 +1,24 @@
 package service
 
-import "errors"
+import (
+	"errors"
+	"sync"
+)
+
+type service struct{}
+
+var (
+	primeCache map[uint32]uint32
+	mutex      sync.Mutex
+)
 
 type PrimeService interface {
 	Calculate(primeNumber uint32) (uint32, error)
 }
 
-type service struct{}
-
 // Info: Here we can inject database instance as a parameter but thats not required.
-func NewPrimeService() PrimeService {
+func NewPrimeService(dataMap map[uint32]uint32) PrimeService {
+	primeCache = dataMap
 	return &service{}
 }
 
@@ -18,6 +27,11 @@ func (*service) Calculate(primeNumber uint32) (result uint32, err error) {
 	if primeNumber == 0 {
 		err := errors.New("Zero is invalid input. Please provide valid input.")
 		return 0, err
+	}
+
+	// Safe to read concurrently. Reading from local map acting as cache object
+	if value, found := primeCache[primeNumber]; found {
+		return value, nil
 	}
 
 	return getPrime(primeNumber), nil
@@ -43,5 +57,14 @@ func getPrime(givenNumber uint32) (largestAvailablePrime uint32) {
 			break
 		}
 	}
+	writeToLocalCache(givenNumber, result)
 	return result
+}
+
+func writeToLocalCache(givenPrime uint32, resultantPrime uint32) error {
+	mutex.Lock()
+	defer mutex.Unlock()
+
+	primeCache[givenPrime] = resultantPrime
+	return nil
 }

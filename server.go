@@ -11,18 +11,21 @@ import (
 )
 
 var (
-	/* Since we are not interacting with database layer
-	so we are not injecting any repository in service object */
-	primeService service.PrimeService = service.NewPrimeService()
+	primeCache = map[uint32]uint32{0: 0}
+
+	/* Creating and injecting local cache.
+	If we had database layer then we would have injected here in service */
+	primeService service.PrimeService = service.NewPrimeService(primeCache)
 
 	//Injectig service object(PrimeService) to controller object (PrimeController)
 	primeController controller.PrimeController = controller.NewPrimeController(primeService)
-	muxRouter       router.Router              = router.NewMuxRouter()
+
+	muxRouter router.Router = router.NewMuxRouter()
 )
 
 func main() {
 	const port string = ":8000"
-	//var port string = os.Getenv("PRIME_PORT")
+
 	muxRouter.GET("/", home)
 	muxRouter.POST("/postprime", primeController.PostPrime)
 	muxRouter.SERVE(port)

@@ -28,9 +28,9 @@ func NewPrimeController(service service.PrimeService) PrimeController {
 func (*controller) PostPrime(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "application/json")
 
-	receivedPrime, err1 := strconv.ParseInt(request.PostFormValue("primenumber"), 0, 32)
+	receivedPrime, err1 := strconv.ParseUint(request.PostFormValue("primenumber"), 10, 64)
 	if err1 != nil {
-		fmt.Println(err1)
+		fmt.Println("Controller->" + err1.Error())
 		response.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(response).Encode(errors.ServiceError{Message: "Invalid input. Please provide valid numeric value."})
 		return
@@ -38,9 +38,9 @@ func (*controller) PostPrime(response http.ResponseWriter, request *http.Request
 
 	result, err2 := primeService.Calculate(uint32(receivedPrime))
 	if err2 != nil {
-		fmt.Println(err2)
+		fmt.Println("Controller-> " + err2.Error())
 		response.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(response).Encode(errors.ServiceError{Message: "Error processing the given information"})
+		json.NewEncoder(response).Encode(errors.ServiceError{Message: err2.Error()})
 		return
 	}
 	response.WriteHeader(http.StatusOK)

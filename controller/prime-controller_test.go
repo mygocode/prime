@@ -13,7 +13,8 @@ import (
 )
 
 var (
-	primeSrv        service.PrimeService = service.NewPrimeService()
+	testPrimeCache                       = map[uint32]uint32{0: 0}
+	primeSrv        service.PrimeService = service.NewPrimeService(testPrimeCache)
 	primeController PrimeController      = NewPrimeController(primeSrv)
 )
 
