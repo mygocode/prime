@@ -7,12 +7,12 @@ Following tools are used to develop the appliation
 - Git for source control managment
 - GitKraken tool for git visualization
 - Docker for containarization 
-- Jenkins Pipeline for CI/CD 
+- Jenkins for CI/CD pipline 
 - AWS EC2 instance for hosting the application 
 
 ## Project Structure
 This project is designed using GO language and Clean Architecture. Clean architecture ensures every layer should be separated from other and these layer should not have dependency on each other. This structure ensures cleanness, maintainability, and extensibility.   
-As you can observe in the picture below that the architecture is not dependent on any framework and frameworks can be easily replaced without affecting the whole application.
+As it is clear in the picture below that the architecture is not dependent on any framework and frameworks can be easily replaced without affecting the whole application.
 
 ![Clean Architecture](https://i.ibb.co/bbLrsPR/clean-arch.jpg)
 
@@ -24,25 +24,11 @@ I have used multi-stage docker file to reduce the size of the docker image.
 ## GIT 
 Here is the git history. I use GitKraken tool for git visualization and keep tracking of multiple branches.   
 
-![Git History](https://i.ibb.co/KWQR99X/Git-Kraken.jpg)
+![Git History](https://i.ibb.co/cXKzg2r/Git-Kraken.jpg)
 
 ## Cache
-Most of the application uses **Memcached**, **Redis** or **Apache Ignite** but according to the scope of this application, I decided use a Local Cache strategy which is easir to implement and light-weight. When the user will enter a number to get the prime number, the application will first check the local cache for the user given number. If its a cache miss, then the system will invoke the service layer and do the processing, cache the result, and return the result to the user.   
+Most of the application uses **Memcached**, **Redis** or **Apache Ignite** but according to the scope of this application, I decided use a **Local Cache** strategy which is easir to implement and light-weight. When the user will enter a number to get the prime number, the application will first check the local cache for the user given number. If its a cache miss, then the system will invoke the service layer and do the processing, cache the result, and return the result to the user.   
 If user enters the same number again, this time the response will be super fast because the value is already available in the cache.
-
-## Development Process for production application
-I will prefer to use the following steps for production level application.
-
-- Developer/s pick up the task from Jira board and assign it to themselves so other team members could know. 
-- Create a feature branch locally.
-- Push that branch to remote repo we well.
-- If more than one developer is working then they will use this same branch and commit their changes on this branch.
-- When the feature is done, the code will go to the Code Review(CR) stage. 
-- At CR stage, another developer in the team will review the code and either accepts the changes or reject the changes. 
-- If CR is successful, then code is merged to the feature branch.
-- When the feature is complete, the team will move their task on Jira board to QA column. 
-- The QA team will deploy this feature on testing environment and test the feature according to the defined criteria in the description. 
-- Once the QA is successful, then either QA or feature owner will merge the code to the master branch. 
 
 ## Deployment with Jenkins
 I have used Jenkins pipeline for deployment. In a team environment, we need to have at least 3 environments, **Dev**, **QA**, **Production**. There can be other environments like **CI**, **Nightly** etc, but that depends on requirement.   
@@ -53,7 +39,21 @@ To keep the process simple, I haven't configured any trigger on master branch to
 - Push the docker image to Dockerhub.
 - Deploy the image to the AWS EC2 instance.   
 
-![Jenkins](https://i.ibb.co/S3XWg8f/Jenkins.jpg)
+![Jenkins](https://i.ibb.co/dK1h70R/Jenkins.jpg)
+
+## Development Process for production application
+I will prefer to use the following steps for production level application.
+
+- Developer/s pick up the task from Jira board and assign it to themselves so other team members could know. 
+- Create a feature branch locally.
+- Push that branch to remote repo we well.
+- If more than one developers are working then they will use this same branch and commit their changes on this branch.
+- When the feature is done, the code will go to the Code Review(CR) stage. 
+- At CR stage, technical person will review the code and either accepts the changes or reject the changes. 
+- If CR is successful, then code is merged to the feature branch.
+- When the feature is complete, the team will move their task on Jira board to QA column. 
+- The QA team will deploy this feature on testing environment and test the feature according to the acceptance criteria in the Jira description. 
+- Once the QA is successful, then either QA or feature owner will merge the code to the master branch. 
 
 ## Points which can be improved
 Due to limited time, I couldn't touch every aspect of production application. Following points can be improvement.    
