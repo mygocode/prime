@@ -10,9 +10,6 @@ Following tools are used to develop the appliation
 - Jenkins for CI/CD pipline 
 - AWS EC2 instance for hosting the application 
 
-> Application is accessible using fllowing links   
-> **Public DNS:** ec2-3-16-29-7.us-east-2.compute.amazonaws.com   
-> **Public IP:** http://3.16.29.7:80/   
 
 ## Project Structure
 This project is designed using GO language and Clean Architecture. Clean architecture ensures every layer should be separated from other and these layer should not have dependency on each other. This structure ensures cleanness, maintainability, and extensibility.   
