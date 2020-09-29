@@ -1,6 +1,19 @@
 # Prime Number Application 
+## Interview Demo App
+This was my Interview demo application which I made for one of the company. 
+> Requirement   
+Create a web application that takes in a number and returns to the user the highest prime number lower than the input number. For example an input of 55 would return 53. Treat this like a real production application that you would be proud of.   
+You will be graded on:   
+    - Code readability and maintainability   
+    - Test coverage   
+    - Ease of deployment and best practices   
+    - Git commit history   
+    - Containerize your application for a one line build experience  
+    - Use Golang (1.11 or above with module support) and/or typescript  
+    - Host and run your application on a cloud provider.   
+    - Anything else you would pay attention to in real production system  
+    
 ## Introduction
-This is a simple web application that takes in a number and return to the user the highest prime number lower than the input number. For example an input of 55 would return 53.   
 Following tools are used to develop the appliation
 - Go language
 - VS code IDE
